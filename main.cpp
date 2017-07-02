@@ -9,21 +9,22 @@
 
 using namespace std;
 
-string readTextFromFile();
+string readTextFromFile(string nameOfFile);
 bool checkSymbol(char symbol, string checkingString);
 void getNumbSentencesAndWords(string textString, int &numbOfSentences, int &numbOfWords);
 bool comparisonForSorting(pair< string, int > &a, pair< string, int > &b);
 vector< pair < string, int > > getWords(string textString);
 
-string readTextFromFile()
+string readTextFromFile(string nameOfFile)
 {
-	ifstream  file("Data.txt");
+	ifstream  file(nameOfFile);
 	string tempString, textString;
 	while (getline(file, tempString))
 	{
 		textString += tempString;
 	}
 	file.close();
+	nameOfFile.clear();
 	tempString.clear();
 	return textString;
 }
@@ -83,13 +84,14 @@ vector< pair < string, int > > getWords(string textString)
 	return vectorOfWords;
 }
 
-int main()
+int main(int argc, char *argv[])
 {
 	string textString;
+	string nameOfFileData = argv[1];
 	int numbOfSentences = 0, numbOfWords = 0;
 	int i = 0;
 	vector< pair < string, int > > vectorOfWords;
-	textString = readTextFromFile();
+	textString = readTextFromFile(nameOfFileData);
 	cout << textString << endl;
 	getNumbSentencesAndWords(textString, numbOfSentences, numbOfWords);
 	cout << "Numb of sentences are " << numbOfSentences << endl;
