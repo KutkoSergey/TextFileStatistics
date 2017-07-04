@@ -25,6 +25,18 @@
         </StackPanel>
         <TextBlock x:Name="numbOfWordsText" FontSize="16" Text="Numb of words are " Margin="5, 5, 5, 5"/>
         <TextBlock x:Name="numbOfSentencesText" FontSize="16" Text="Numb of sentences are " Margin="5, 5, 5, 5"/>
+        <ListView Name="ListOfStatistic">
+
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Unique word" DisplayMemberBinding="{Binding UniqueWord}"/>
+                    <GridViewColumn Header="Numb of word int the text" DisplayMemberBinding="{Binding NumbWord}"/>
+                    <GridViewColumn Header="Part of word int the text" DisplayMemberBinding="{Binding partWord}"/>
+                </GridView>
+            </ListView.View>
+            
+        </ListView>
+
 
     </StackPanel>
 </Window>
