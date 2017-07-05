@@ -39,8 +39,6 @@ void getNumbSentencesAndWords(string textString, int &numbOfSentences, int &numb
 			if (!checkSymbol(textString.at(i - 1), checkingStringForWords))
 				numbOfWords++;
 	}
-	if (numbOfWords == 0)
-		numbOfWords = 55;
 	checkingStringForSentences.clear();
 	checkingStringForWords.clear();
 }

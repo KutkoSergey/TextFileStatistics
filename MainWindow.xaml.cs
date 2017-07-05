@@ -11,49 +11,51 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Runtime.InteropServices;
+using System.Collections.Generic;
 
 
 namespace WPF_for_text_File_Statistic
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
 
         private int numbOfWords;
         private int numbOfSentences;
-        //private String nameOfFile;
-        // private String textString;
-
 
         [System.Runtime.InteropServices.DllImport("C:\\Users\\kutko\\Documents\\Visual Studio 2015\\Projects\\Dll For Text File Statistic\\Debug\\Dll For Text File Statistic.dll", CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Cdecl)]
-        //   [DllImport("C:\\Users\\kutko\\Documents\\Visual Studio 2015\\Projects\\Dll For Text File Statistic\\Debug\\Dll For Text File Statistic.dll")]
         public static extern void getStatistic([MarshalAs(UnmanagedType.LPStr)]  string nameOfFile, ref int numbOfWords, ref int numbOfSentences);
 
-        [System.Runtime.InteropServices.DllImport("C:\\Users\\kutko\\Documents\\Visual Studio 2015\\Projects\\TestDllOnC++\\Debug\\TestDllOnC++.dll", CharSet = CharSet.Unicode)]
-
-        public static extern int mull(int a, int b);
         public MainWindow()
         {
             InitializeComponent();
+           
         }
 
         private void showButtonClick(object sender, RoutedEventArgs e)
         {
-            if(nameOfFile.Text == string.Empty)
+            if (nameOfFile.Text == string.Empty)
             {
                 MessageBox.Show("you did't input name of file");
             }
             else
             {
-                StringBuilder tempStringNameofFile = new StringBuilder(40);
-                tempStringNameofFile.Insert(0, "Data.txt");
-                //tempStringNameofFile.Insert(0, nameOfFile.Text);
                 getStatistic(nameOfFile.Text, ref numbOfWords, ref numbOfSentences);
-
-                numbOfWordsText.Text = "Numb of words are " + numbOfWords.ToString() ;
-                numbOfSentencesText.Text = "Numb of sentences are " + numbOfSentences.ToString();            }
+                numbOfWordsText.Text = "Numb of words are " + numbOfWords.ToString();
+                numbOfSentencesText.Text = "Numb of sentences are " + numbOfSentences.ToString();
+                List < StatisticOfUniqueWords > statisticListItems = new List<StatisticOfUniqueWords>();
+                statisticListItems.Add(new StatisticOfUniqueWords() { uniqueWord = "cat", numbOfWordsInText = 42, shareOfWordsInText = 2 });
+                statisticListItems.Add(new StatisticOfUniqueWords() { uniqueWord = "dog", numbOfWordsInText = 39, shareOfWordsInText = 14 });
+                statisticListItems.Add(new StatisticOfUniqueWords() { uniqueWord = "row", numbOfWordsInText = 13, shareOfWordsInText = 66 });
+                statisticList.ItemsSource = statisticListItems; 
+            }
         }
     }
+
+    public class StatisticOfUniqueWords
+    {
+        public string uniqueWord { get; set; }
+        public int numbOfWordsInText { get; set; }
+        public int shareOfWordsInText { get; set; }
+    }
+
 }
